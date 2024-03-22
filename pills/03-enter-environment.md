@@ -384,7 +384,7 @@ nixpkgs http://nixos.org/channels/nixpkgs-unstable
 > [!NOTE]
 > `~/.nix-channels` is not a symlink to the nix store!
 
-[!]
+[!NOTE]
 `~/.nix-channels` — это не символическая ссылка на хранилище!
 
 > To update the channel run `nix-channel --update`.
