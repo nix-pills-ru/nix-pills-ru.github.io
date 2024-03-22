@@ -30,23 +30,21 @@ Nix](https://nixos.org/manual/nix/stable/installation/installation.html).
 Эти статьи не являются руководством по *использованию* Nix.
 Вместо этого, мы собираемся прогулялся по системе Nix, чтобы понять, как она устроена.
 
->The first thing to note: derivations in the Nix store refer to other derivations which are themselves in the Nix store.
->They don't use `libc` from our system or anywhere else.
->It's a self-contained store of all the software we need to bootstrap up to any particular package.
+> The first thing to note: derivations in the Nix store refer to other derivations which are themselves in the Nix store.
+> They don't use `libc` from our system or anywhere else.
+> It's a self-contained store of all the software we need to bootstrap up to any particular package.
 
 Первая важная вещь: порождения в хранилище Nix ссылаются на другие порождения, которые также находятся в хранилище Nix.
 Они не используют `libc` из нашей системы или откуда-то ещё.
 В хранилище находятся все необходимые библиотеки, которые могут потребоваться, чтобы запустить любой конкретный пакет.
 
-<div class="note">
+> [!NOTE]
+> In a multi-user installation, such as the one used in NixOS, the store is owned by root and multiple users >can install and build software through a Nix daemon.
+> You can read more about multi-user installations here: <https://nixos.org/manual/nix/stable/installation/>installing-binary.html#multi-user-installation>.
 
->In a multi-user installation, such as the one used in NixOS, the store is owned by root and multiple users >can install and build software through a Nix daemon.
->You can read more about multi-user installations here: <https://nixos.org/manual/nix/stable/installation/>installing-binary.html#multi-user-installation>.
-
+[!NOTE]
 При многопользовательской установке (такая как раз применяется в NixOS), хранилищем владеет root, а многочисленные пользователи могут устанавливать или собирать софт при помощи демона Nix.
 Больше о многопользовательской установке вы можете прочитать здесь: <https://nixos.org/manual/nix/stable/installation/>installing-binary.html#multi-user-installation>.
-
-</div>
 
 > ## The beginnings of the Nix store
 
@@ -105,23 +103,19 @@ Nix](https://nixos.org/manual/nix/stable/installation/installation.html).
 
 Вы можете исследовать эту базу, установив sqlite (`nix-env -iA sqlite -f '<nixpkgs>'`) и выполнив команду `sqlite3 /nix/var/nix/db/db.sqlite`.
 
-<div class="note">
-
+> [!NOTE]
 > If this is the first time you're using Nix after the initial installation, remember you must close and open your terminals first, so that your shell environment will be updated.
 
+[!NOTE]
 Сразу после установки Nix не забудьте закрыть и заново открыть терминалы, чтобы обновить настройки оболочки.
 
-</div>
-
-<div class="important">
-
+> [!IMPORTANT]
 > Never change `/nix/store` manually.
 > If you do, then it will no longer be in sync with the sqlite db, unless you *really* know what you are doing.
 
+[!IMPORTANT]
 Никогда не изменяйте `/nix/store` вручную.
 Иначе хранилище больше не будет синхронизировано в базой данных sqlite, если только вы *на самом деле* не знаете, что делаете.
-
-</div>
 
 > ## The first profile
 
@@ -154,7 +148,7 @@ created 7 symlinks in user environment
 
 > Let's take a closer look at our profile:
 
-```bash
+```text
 $ ls -l ~/.nix-profile/
 bin -> /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/bin
 [...]
@@ -267,7 +261,7 @@ modifying /home/nix/.profile...
 
 Убедитесь сами, и не волнуйтесь, если увидите множество порождений bash:
 
-```bash
+```text
 $ ldd /nix/store/*bash*/bin/bash
 [...]
 ```
@@ -319,4 +313,4 @@ $ ldd /nix/store/*bash*/bin/bash
 
 > ...we will enter the Nix environment and learn how to interact with the store.
 
-Мы погрузимся в окружение Nix и научимся взаимодействовать с хранилищем.
+...мы погрузимся в окружение Nix и научимся взаимодействовать с хранилищем.
