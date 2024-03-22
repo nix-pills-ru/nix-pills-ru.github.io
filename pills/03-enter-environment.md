@@ -13,6 +13,10 @@ If your `~/.profile` got evaluated, then you should now be able to run commands 
 
 If that's not the case:
 
+```text
+$ source ~/.nix-profile/etc/profile.d/nix.sh
+```
+
 To remind you, `~/.nix-profile/etc` points to the `nix-2.1.3` derivation.
 At this point, we are in our Nix user profile.
 
@@ -23,6 +27,14 @@ Installation into the Nix environment is an interesting process.
 Let's install `hello`, a simple CLI tool which prints `Hello world` and is mainly used to test compilers and package installations.
 
 Back to the installation:
+
+```text
+$ nix-env -i hello
+installing 'hello-2.10'
+[...]
+building '/nix/store/0vqw0ssmh6y5zj48yg34gc6macr883xk-user-environment.drv'...
+created 36 symlinks in user environment
+```
 
 Now you can run `hello`.
 Things to notice:
@@ -39,7 +51,19 @@ Things to notice:
 
 We can list generations without walking through the `/nix` hierarchy:
 
+```text
+$ nix-env --list-generations
+   1   2014-07-24 09:23:30
+   2   2014-07-25 08:45:01   (current)
+```
+
 Listing installed derivations:
+
+```text
+$ nix-env -q
+nix-2.1.3
+hello-2.10
+```
 
 So, where did `hello` really get installed? `which hello` is `~/.nix-profile/bin/hello` which points to the store.
 We can also list the derivation paths with `nix-env -q --out-path`.
@@ -53,9 +77,27 @@ As usual, a new generation will be created, and `~/.nix-profile` will point to i
 
 Let's inspect the [profile](https://nixos.org/manual/nix/stable/package-management/profiles.html) a bit:
 
+```text
+$ ls -l ~/.nix-profile/
+dr-xr-xr-x 2 nix nix 4096 Jan  1  1970 bin
+lrwxrwxrwx 1 nix nix   55 Jan  1  1970 etc -> /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/etc
+[...]
+```
+
 Now that's interesting.
 When only `nix-2.1.3` was installed, `bin` was a symlink to `nix-2.1.3`.
 Now that we've actually installed some things (`man`, `hello`), it's a real directory, not a symlink.
+
+```text
+$ ls -l ~/.nix-profile/bin/
+[...]
+man -> /nix/store/83cn9ing5sc6644h50dqzzfxcs07r2jn-man-1.6g/bin/man
+[...]
+nix-env -> /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/bin/nix-env
+[...]
+hello -> /nix/store/58r35bqb4f3lxbnbabq718svq9i2pda3-hello-2.10/bin/hello
+[...]
+```
 
 Okay, that's clearer now. `nix-env` merged the paths from the installed derivations.
 `which man` points to the Nix profile, rather than the system `man`, because `~/.nix-profile/bin` is at the head of `$PATH`.
@@ -66,10 +108,20 @@ The last command installed `man`.
 We should be at generation 3, unless you changed something in the middle.
 Let's say we want to rollback to the old generation:
 
+```text
+$ nix-env --rollback
+switching from generation 3 to 2
+```
+
 Now `nix-env -q` does not list `man` anymore.
 `` ls -l `which man` `` should now be your system copy.
 
 Enough with the rollback, let's go back to the most recent generation:
+
+```text
+$ nix-env -G 3
+switching from generation 2 to 3
+```
 
 I invite you to read the manpage of `nix-env`.
 `nix-env` requires an operation to perform, then there are common options for all operations, as well as options specific to each operation.
@@ -86,10 +138,25 @@ We can do some interesting things, but we'll only see some queries for now.
 
 To show the direct runtime dependencies of `hello`:
 
+```text
+$ nix-store -q --references `which hello`
+/nix/store/fg4yq8i8wd08xg3fy58l6q73cjy8hjr2-glibc-2.27
+/nix/store/58r35bqb4f3lxbnbabq718svq9i2pda3-hello-2.10
+```
+
 The argument to `nix-store` can be anything as long as it points to the Nix store.
 It will follow symlinks.
 
 It may not make sense to you right now, but let's print reverse dependencies of `hello`:
+
+```text
+$ nix-store -q --referrers `which hello`
+/nix/store/58r35bqb4f3lxbnbabq718svq9i2pda3-hello-2.10
+/nix/store/fhvy2550cpmjgcjcx5rzz328i0kfv3z3-env-manifest.nix
+/nix/store/yzdk0xvr0b8dcwhi2nns6d75k2ha5208-env-manifest.nix
+/nix/store/mp987abm20c70pl8p31ljw1r5by4xwfw-user-environment
+/nix/store/ppr3qbq7fk2m2pa49i2z3i32cvfhsv7p-user-environment
+```
 
 Was it what you expected?
 It turns out that our environments depend upon `hello`.
@@ -105,10 +172,20 @@ And yet again, the current `manifest.nix` can be found at `~/.nix-profile/manife
 
 The closures of a derivation is a list of all its dependencies, recursively, including absolutely everything necessary to use that derivation.
 
+```text
+$ nix-store -qR `which man`
+[...]
+```
+
 Copying all those derivations to the Nix store of another machine makes you able to run `man` out of the box on that other machine.
 That's the base of deployment using Nix, and you can already foresee the potential when deploying software in the cloud (hint: `nix-copy-closures` and `nix-store --export`).
 
 A nicer view of the closure:
+
+```text
+$ nix-store -q --tree `which man`
+[...]
+```
 
 With the above command, you can find out exactly why a *runtime* dependency, be it direct or indirect, exists for a given derivation.
 
@@ -123,6 +200,13 @@ A version of X which depended on Z would be a different derivation.
 
 ## Recovering the hard way
 
+```text
+$ nix-env -e '*'
+uninstalling 'hello-2.10'
+uninstalling 'nix-2.1.3'
+[...]
+```
+
 Oops, that uninstalled all derivations from the environment, including Nix.
 That means we can't even run `nix-env`, what now?
 
@@ -133,7 +217,15 @@ First, pick one `nix-2.1.3` derivation: `ls /nix/store/*nix-2.1.3`, say `/nix/st
 
 The first option is to rollback:
 
+```text
+$ /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/bin/nix-env --rollback
+```
+
 The second option is to install Nix, thus creating a new generation:
+
+```text
+$ /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/bin/nix-env -i /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/bin/nix-env
+```
 
 ## Channels
 
@@ -141,6 +233,11 @@ So where are we getting packages from?
 We said something about this already in the [second article](#install-on-your-running-system).
 There's a list of channels from which we get packages, although usually we use a single channel.
 The tool to manage channels is [nix-channel](https://nixos.org/manual/nix/stable/command-ref/nix-channel.html).
+
+```text
+$ nix-channel --list
+nixpkgs http://nixos.org/channels/nixpkgs-unstable
+```
 
 If you're using NixOS, you may not see any output from the above command (if you're using the default), or you may see a channel whose name begins with "nixos-" instead of "nixpkgs".
 
