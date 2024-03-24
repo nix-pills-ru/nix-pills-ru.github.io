@@ -3,7 +3,7 @@
 - [1. Почему вам стоит попробовать Nix](01-why-you-should-give-it-try.md) (черн.)
 - [2. Установка в вашей системе](02-install-on-your-running-system.md) (черн.)
 - [3. Погружаемся в среду](03-enter-environment.md) (черн.)
-- 4.
+- [4. Основы языка](04-basics-of-language.md) (черн.)
 - 5.
 - 6.
 - 7.
