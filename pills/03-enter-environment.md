@@ -381,11 +381,11 @@ nixpkgs http://nixos.org/channels/nixpkgs-unstable
 
 По сути, это содержимое файла `~/.nix-channels`.
 
-> [!NOTE]
-> `~/.nix-channels` is not a symlink to the nix store!
+> > [!NOTE]
+> > `~/.nix-channels` is not a symlink to the nix store!
 
-[!NOTE]
-`~/.nix-channels` — это не символическая ссылка на хранилище!
+> [!NOTE]
+> `~/.nix-channels` — это не символическая ссылка на хранилище!
 
 > To update the channel run `nix-channel --update`.
 > That will download the new Nix expressions (descriptions of the packages), create a new generation of the channels profile and unpack it under `~/.nix-defexpr/channels`.

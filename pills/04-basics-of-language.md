@@ -30,17 +30,17 @@
 
 С другой стороны, этот синтаксис прекрасно подходит для описания пакетов, так что изучение языка окупится при написании пакетных выражений.
 
-> [!IMPORTANT]
-> In Nix, everything is an expression, there are no statements. This is common in functional languages.
-
-[!IMPORTANT]
-В Nix всё является выражением, там нет операторов. Это обычное дело в функциональных языках.
+> > [!IMPORTANT]
+> > In Nix, everything is an expression, there are no statements. This is common in functional languages.
 
 > [!IMPORTANT]
-> Values in Nix are immutable.
+> В Nix всё является выражением, там нет операторов. Это обычное дело в функциональных языках.
 
-[!IMPORTANT]
-Значения в Nix неизменяемые (иммутабельные).
+> > [!IMPORTANT]
+> > Values in Nix are immutable.
+
+> [!IMPORTANT]
+> Значения в Nix неизменяемые (иммутабельные).
 
 > ## Value types
 
