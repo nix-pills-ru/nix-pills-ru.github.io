@@ -4,7 +4,7 @@
 - [2. Установка в вашей системе](02-install-on-your-running-system.md) (черн.)
 - [3. Погружаемся в среду](03-enter-environment.md) (черн.)
 - [4. Основы языка](04-basics-of-language.md) (черн.)
-- 5.
+- [5. Функции и импорт](05-functions-and-imports.md) (черн.)
 - 6.
 - 7.
 - 8.
