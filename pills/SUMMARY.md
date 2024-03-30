@@ -5,7 +5,7 @@
 - [3. Погружаемся в среду](03-enter-environment.md) (черн.)
 - [4. Основы языка](04-basics-of-language.md) (черн.)
 - [5. Функции и импорт](05-functions-and-imports.md) (черн.)
-- 6.
+- [6. Наше первое порождение](06-our-first-derivation.md) (черн.)
 - 7.
 - 8.
 - 9.

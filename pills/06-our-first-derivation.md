@@ -123,6 +123,7 @@ nix-repl> d
 
 > > [!NOTE]
 > > If your version of nix doesn't have `nix derivation show`, use `nix show-derivation` instead.
+
 > [!NOTE]
 > Если в вашей версия Nix нет команды `nix derivation show`, используйте вместо неё `nix show-derivation`.
 
