@@ -98,10 +98,6 @@ libc.so.6 => /nix/store/94n64qy99ja0vgbkf675nyk39g9b978n-glibc-2.19/lib/libc.so.
 
 ## Изменяемое против неизменного
 
-> When upgrading a library, most package managers replace it in-place.
-> All new applications run afterwards with the new library without being recompiled.
-> After all, they all refer dynamically to `libc6.so`.
-
 При обновлении библиотеки большинство пакетных менеджеров просто перезаписывают файл в каталоге.
 Потом все приложения запускаются с новой версией без перекомпиляции.
 Ненадёжно, но кого это волнует? В конце концов, все приложения динамически ссылаются на `libc6.so`.
@@ -111,17 +107,10 @@ libc.so.6 => /nix/store/94n64qy99ja0vgbkf675nyk39g9b978n-glibc-2.19/lib/libc.so.
 Как же нам быть с обновлениями безопасности?
 У нас в Nix есть несколько трюков (всё ещё чистых), чтобы справиться с этой проблемой, но это другая история.
 
-> Another problem is that unless software has in mind a pure functional model, or can be adapted to it, it can be hard to compose applications at runtime.
-
 Другая проблема заключается в том, что если софт не разрабатывался с расчётом на запуск из каталога только для чтения, или его няльзя адаптировать к такому запуску, его может быть трудно заставить работать.
 
 Возьмём для примера Firefox.
 В большинстве системы вы устанавливаете flash, и он просто начинает работать, потому что Firefox ищет плагины по глобальному пути.
-
-> In Nix, there's no such global path for plugins.
-> Firefox therefore must know explicitly about the path to flash.
-> The way we handle this problem is to wrap the Firefox binary so that we can setup the necessary environment to make it find flash in the nix store.
-> That will produce a new Firefox derivation: be aware that it takes a few seconds, and it makes composition harder at runtime.
 
 В Nix не существует никого глобального пути для плагинов.
 Firefox должен точно знать, где находится flash.
