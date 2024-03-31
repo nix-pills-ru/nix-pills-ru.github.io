@@ -6,7 +6,7 @@
 
 ## Nix в пилюлях
 
-- [Почему вам стоит попробовать Nix (черн.)](01-why-you-should-give-it-try.md)
+- [Почему вам стоит попробовать Nix](01-why-you-should-give-it-try.md)
 - [Установка в вашей системе (черн.)](02-install-on-your-running-system.md)
 - [Погружаемся в среду (черн.)](03-enter-environment.md)
 - [Основы языка (черн.)](04-basics-of-language.md)
