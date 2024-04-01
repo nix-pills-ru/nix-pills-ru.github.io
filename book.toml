@@ -6,3 +6,5 @@ src = "src"
 
 [output.html]
 no-section-label = true
+theme = "theme"
+curly-quotes = true
