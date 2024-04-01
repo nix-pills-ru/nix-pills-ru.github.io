@@ -3,7 +3,7 @@
 - [Предисловие](00-preface.md)
 - [1. Почему вам стоит попробовать Nix](01-why-you-should-give-it-try.md)
 - [2. Установка в вашей системе](02-install-on-your-running-system.md)
-- [3. Погружаемся в среду (черн.)](03-enter-environment.md)
+- [3. Погружаемся в среду](03-enter-environment.md)
 - [4. Основы языка (черн.)](04-basics-of-language.md)
 - [5. Функции и импорт (черн.)](05-functions-and-imports.md)
 - [6. Наше первое порождение (черн.)](06-our-first-derivation.md)
