@@ -14,7 +14,7 @@
 Если нет, запустите:
 
 ```text
-\$ source ~/.nix-profile/etc/profile.d/nix.sh
+$ source ~/.nix-profile/etc/profile.d/nix.sh
 ```
 
 В прошлой статье мы выяснили, что `~/.nix-profile/etc` указывает на порождение `nix-2.1.3`.
@@ -217,13 +217,13 @@ uninstalling 'nix-2.1.3'
 Первый способ всё починить — это откат:
 
 ```text
-\$ /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/bin/nix-env --rollback
+$ /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/bin/nix-env --rollback
 ```
 
 Второй способ — установить `nix-env`, тем самым создав новое поколение:
 
 ```text
-\$ /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/bin/nix-env -i /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/bin/nix-env
+$ /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/bin/nix-env -i /nix/store/ig31y9gfpp8pf3szdd7d4sf29zr7igbr-nix-2.1.3/bin/nix-env
 ```
 
 ## Каналы
