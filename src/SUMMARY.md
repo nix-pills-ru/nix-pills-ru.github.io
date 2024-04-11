@@ -5,7 +5,7 @@
 - [2. Установка в вашей системе](02-install-on-your-running-system.md)
 - [3. Погружаемся в среду](03-enter-environment.md)
 - [4. Основы языка](04-basics-of-language.md)
-- [5. Функции и импорт (черн.)](05-functions-and-imports.md)
+- [5. Функции и импорт](05-functions-and-imports.md)
 - [6. Наше первое порождение (черн.)](06-our-first-derivation.md)
 - [7. Working Derivation]()
 - [8. Generic Builders]()
