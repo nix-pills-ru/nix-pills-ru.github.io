@@ -8,7 +8,7 @@
 - [5. Функции и импорт](05-functions-and-imports.md)
 - [6. Наше первое порождение (черн.)](06-our-first-derivation.md)
 - [7. Working Derivation]()
-- [8. Generic Builders]()
+- [8. Generic Builders (черн.)](08-generic-builders.md)
 - [9. Automatic Runtime Dependencies]()
 - [10. Developing with `nix-shell`]()
 - [11. The Garbage Collector]()
