@@ -1,5 +1,7 @@
 [book]
+title = "Nix в пилюлях"
 authors = ["Luca Bruno"]
+description = "Nix в пилюлях --- классическое введение в Nix и NixOS."
 language = "ru"
 multilingual = false
 src = "src"
