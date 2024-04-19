@@ -116,9 +116,6 @@ declare -x system="x86_64-linux"
 
 ## Содержимое файлов .drv
 
-> We added something else to the derivation this time: the args attribute.
-> Let's see how this changed the .drv compared to the previous pill:
-
 В примере выше мы добавили в деривацию атрибут `args`.
 Как это изменило файл .drv по сравнению с примером из предыдущей пилюли?
 
@@ -293,8 +290,6 @@ pkgs.stdenv.mkDerivation {
 Мы напишем универсальный скрипт сборки.
 Наверное вы заметили, что мы в этом посте написали два разных скрипта `builder.sh`.
 Было бы лучше, если бы у нас был универсальный скрипт, особенно, учитывая, что каждый скрипт сохраняется в хранилище Nix, а это затратно.
-
-> *Is it really that hard to package stuff in Nix? No*, here we're studying the fundamentals of Nix.
 
 *Это и правда так трудно — делать пакеты в Nix? Нет*, мы просто изучаем основы.
 
