@@ -8,7 +8,7 @@
 - [5. Функции и импорт](05-functions-and-imports.md)
 - [6. Наша первая деривация](06-our-first-derivation.md)
 - [7. Работающая деривация](07-working-derivation.md)
-- [8. Универсальные скрипты сборки (черн.)](08-generic-builders.md)
+- [8. Универсальные скрипты сборки](08-generic-builders.md)
 - [9. Automatic Runtime Dependencies]()
 - [10. Developing with `nix-shell`]()
 - [11. The Garbage Collector]()
