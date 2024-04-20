@@ -1,40 +1,21 @@
-> # Generic Builders
-
 # Универсальные скрипты сборки
-
-> Welcome to the 8th Nix pill.
-> In the previous [7th pill](07-working-derivation.md) we successfully built a derivation.
-> We wrote a builder script that compiled a C file and installed the binary under the nix store.
 
 Добро пожаловать на восьмую пилюлю Nix.
 В предыдущей [седьмой пилюле](07-working-derivation.md) мы успешно собрали деривацию.
 Мы написали скрипт сборки, который скомпилировал программу на языке C и установил бинарный образ в хранилище Nix.
 
-> In this post, we will generalize the builder script, write a Nix expression for [GNU hello world](https://www.gnu.org/software/hello/) and create a wrapper around the derivation built-in function.
-
 В этом посте мы обобщим скрипт сборки, напишем выражение Nix для [GNU hello world](https://www.gnu.org/software/hello/) и создадим обёртку над встроенной функцией `derivation`.
-
-> ## Packaging GNU hello world
 
 ## Упаковываем GNU hello world
 
-> In the previous pill we packaged a simple .c file, which was being compiled with a raw gcc call.
-> That's not a good example of a project.
-> Many use autotools, and since we're going to generalize our builder, it would be better to do it with the most used build system.
+В предыдущей пилюле мы упаковали простой файл `.c`, который был скомпилирован с помощью обычного вызова `gcc`.
+Это не самый удачный пример проекта.
+Многие используют `autotools` и, поскольку мы хотим обобщить наш скрипт, лучше ориентироваться на самую популярную систему сборки.
 
-В предыдущей пилюле мы упаковали простой файл .c, который был скомпилирован с помощью обычного вызова gcc.
-Это не очень хороший пример проекта.
-Многие используют autotools и, поскольку мы хотим обобщить наш построить, было бы лучше сделать это с самой используемой системой сборки.
+[GNU hello world](https://www.gnu.org/software/hello/) не смотря на своё название, это всё ещё простой проект, собираемый при помощи `autotools`.
+Загрузите последний архив отсюда: [https://ftp.gnu.org/gnu/hello/hello-2.12.1.tar.gz](https://ftp.gnu.org/gnu/hello/hello-2.12.1.tar.gz).
 
-> [GNU hello world](https://www.gnu.org/software/hello/), despite its name, is a simple yet complete project which uses autotools.
-> Fetch the latest tarball here: <https://ftp.gnu.org/gnu/hello/hello-2.12.1.tar.gz>.
-
-[GNU hello world](https://www.gnu.org/software/hello/) не смотря на своё название, это всё ещё простой, но полный проект, который использует autotools.
-Загрузите последний архив отсюда: <https://ftp.gnu.org/gnu/hello/hello-2.12.1.tar.gz>.
-
-> Let's create a builder script for GNU hello world, hello_builder.sh:
-
-Давайте создадим скрипт сборки для GNU hello world, hello_builder.sh:
+Создадим скрипт сборки для GNU hello world, назовём его `hello_builder.sh`:
 
 ```bash
 export PATH="$gnutar/bin:$gcc/bin:$gnumake/bin:$coreutils/bin:$gawk/bin:$gzip/bin:$gnugrep/bin:$gnused/bin:$bintools/bin"
@@ -45,9 +26,7 @@ make
 make install
 ```
 
-> And the derivation hello.nix:
-
-И деривация hello.nix:
+Деривация `hello.nix`:
 
 ```nix
 let
@@ -73,12 +52,10 @@ derivation {
 }
 ```
 
-> > ### Nix on darwin
-> > Darwin (i.e. macOS) builds typically use `clang` rather than `gcc` for a C compiler.
-> > We can adapt this early example for darwin by using this modified version of `hello.nix`:
 > ### Nix в Darwin 
-> Сборка в Darwin (т.е. macOS) традиционно использует `clang` вместо `gcc` в качестве компилятора C.
-> Мы можем адаптировать этот ранний пример для Darwin, используя такую модифицированную версию `hello.nix`:
+> Сборка в Darwin (т.е. macOS) в качестве компилятора C традиционно использует `clang` вместо `gcc`.
+> Чтобы адаптировать наш пример под Darwin, напишем такую модифицированную версию `hello.nix`:
+>
 > ```nix
 > let
 >   pkgs = import <nixpkgs> { };
@@ -103,31 +80,19 @@ derivation {
 > }
 > ```
 > 
-> > Later, we will show how Nix can automatically handle these differences.
-> > For now, please be just aware that changes similar to the above may be needed in what follows.
->
-> Позже мы покажем как Nix может автоматически обрабатывать эти различия.
-> Сейчас просто имейте в виде, что в других скриптах также могут потребоваться изменения, подобные описанным выше.
+> Позже мы покажем как обрабатывать эти различия автоматически.
+> Сейчас просто имейте в виду, что в других скриптах также могут потребоваться изменения, подобные описанным выше.
 
-> Now build it with `nix-build hello.nix` and you can launch `result/bin/hello`.
-> Nothing easier, but do we have to create a builder.sh for each package?
-> Do we always have to pass the dependencies to the `derivation` function?
+Соберём программу, запустив `nix build hello.nix`.
+Теперь можно выполнить `result/bin/hello`.
+Всё довольно просто, но надо ли писать `builder.sh` для каждого пакета?
+Надо ли всегда передавать зависимости в функцию `derivation`?
 
-Теперь соберём программу, запустив `nix build hello.nix` и вы можете запустить `result/bin/hello`.
-Нет ничего проще, но надо ли нам писать builder.sh для каждого пакета?
-Должны ли мы всегда передавать зависимости в функцию `derivation`?
+Пожалуйста, обратите внимание на параметр `--prefix=$out`, который мы обсуждали в [предыдущей пилюле](07-working-derivation.md).
 
-> Please note the `--prefix=$out` we were talking about in the [previous pill](#07-working-derivation.md).
+## Универсальный скрипт
 
-Пожалуйста, обратите внимание на `--prefix=$out`, который мы обсуждали в [предыдущей пилюле](07-working-derivation.md).
-
-> ## A generic builder
-
-## Обобщённый скрипт
-
-> Let's create a generic `builder.sh` for autotools projects:
-
-Давайте напишем обобщённую версию `builder.sh` для проектов autotools:
+Обобщим `builder.sh` на все проекты `autotools`:
 
 ```bash
 set -e
@@ -150,34 +115,20 @@ make
 make install
 ```
 
-> What do we do here?
+Что мы делаем?
 
-Что мы здесь делаем?
-
-> 1. Exit the build on any error with `set -e`.
-> 2. First `unset PATH`, because it's initially set to a non-existent path.
-> 3. We'll see this below in detail, however for each path in `$buildInputs`, we append `bin` to `PATH`.
-> 4. Unpack the source.
-> 5. Find a directory where the source has been unpacked and `cd` into it.
-> 6. Once we're set up, compile and install.
-
-1. С помощью `set -e` мы говорим оболочке прерывать выполнение скрипта в случае любой ошибки.
-2. Первым делом очищаем `PATH`` (`unset PATH`), потому что в начале переменная содержит несуществующие пути.
-3. Для каждого пути в `$buildInputs` добавляем к нему `bin` и всё вместе добавляем к `PATH`.
+1. С помощью `set -e` просим оболочку прерывать выполнение скрипта в случае любой ошибки.
+2. Вначале очищаем `PATH`` (`unset PATH`), потому что в этом месте переменная содержит несуществующие пути.
+3. В конец каждого пути из `$buildInputs` дописываем `bin` и всё вместе добавляем к `PATH`.
    Подробности обсуждим чуть позже.
 4. Распоковываем исходники.
 5. Ищем каталог, куда были распакованы исходники и переходим в него, выполнив команду `cd`.
 6. Наконец, конфигурируем, компилируем и устанавливаем проект.
 
-> As you can see, there's no reference to "hello" in the builder anymore.
-> It still makes several assumptions, but it's certainly more generic.
+Как видите, в скрипте сборки больше нет никаких ссылок на "hello".
+Скрипт по прежнему опирается на несколько соглашений, но безусловно, это версия более универсальна.
 
-Как вы видите, в скрипте сборки больше нет никаких ссылок на "hello".
-Он, по прежнему, опирается на несколько соглашений, но безусловно, это более универсальная версия.
-
-> Now let's rewrite `hello.nix`:
-
-Теперь давайте перепишем `hello.nix`:
+Теперь перепишем `hello.nix`:
 
 ```nix
 let
@@ -202,17 +153,11 @@ derivation {
   system = builtins.currentSystem;
 }```
 
-> All clear, except that buildInputs.
-> However it's easier than any black magic you are thinking of at this moment.
+Тут всё ясно, за исключением, может быть, `buildInputs`.
+Но и в `buildInputs` нет никакой чёрной магии.
 
-Тут всё ясно, за исключением `buildInputs`.
-Тем не менее, это проще любой чёрной магии, о которой вы думаете в данный момент.
-
-> Nix is able to convert a list to a string.
-> It first converts the elements to strings, and then concatenates them separated by a space:
-
-Nix умеет конвертировать список в строку.
-Сначала он конвертирует элементы в строки, а затем соединяет их, разделяя пробелом:
+Nix умеет конвертировать списки в строку.
+Сначала он конвертирует в строки каждый отдельный элемент, а затем склеивает их, разделяя пробелом:
 
 ```text
 nix-repl> builtins.toString 123
@@ -222,9 +167,7 @@ nix-repl> builtins.toString [ 123 456 ]
 "123 456"
 ```
 
-> Recall that derivations can be converted to a string, hence:
-
-Вспомним, что деривации могут быть сконвертированы в строку, поэтому:
+Вспомним, что и деривации можно конвертировать в строку, поэтому:
 
 ```text
 nix-repl> :l <nixpkgs>
@@ -237,30 +180,18 @@ nix-repl> builtins.toString [ gnugrep gnused ]
 "/nix/store/g5gdylclfh6d224kqh9sja290pk186xd-gnugrep-2.14 /nix/store/krgdc4sknzpw8iyk9p20lhqfd52kjmg0-gnused-4.2.2"
 ```
 
-> Simple!
-> The buildInputs variable is a string with out paths separated by space, perfect for bash usage in a for loop.
+Вот так всё просто!
+Переменная `buildInputs` в конечном итогде будет содержать нужные нам пути, разделённые пробелом.
+Нет ничего лучше для использования в цикле `for` интерпретатора `bash`.
 
-Всё просто!
-Переменная `buildInputs` это строка с нашими путями, разделёнными пробелом, идеально для использования в bash в цикле for.
+## Удобная версия функции `derivation`
 
-> ## A more convenient derivation function
+Нам удалось написать скрипт, который можно использовать для разных проектов `autotools`.
+Но в выражении `hello.nix` мы определяем все программы, которые могут потребоваться, включая те, которые не нужны для сборки конкретного проекта.
 
-## Более удобная функция derivation
+Мы можем написать функцию, которая также, как и `derivation`, принимает набор атрибутов, и сливает его с другим набором атрибутов, общим для всех проектов.
 
-> We managed to write a builder that can be used for multiple autotools projects.
-> But in the hello.nix expression we are specifying tools that are common to more projects; we don't want to pass them every time.
-
-Нам удалось написать сборщик, который может быть использован для множества проектов autotools.
-Но в выражении hello.nix мы определяем все программы, которые могут потребоваться, даже те, которые не нужны для сборки конкретного проекта.
-
-> A natural approach would be to create a function that accepts an attribute set, similar to the one used by the derivation function, and merge it with another attribute set containing values common to many projects.
-
-Естественным подходом было бы создать функцию, которая принимала бы набор атрибутов, подобно тому, как это делает функция
-derivation, и сливать его с другим набором атрибуотов, содержащим значения, общие для многих проектов.
-
-> Create `autotools.nix`:
-
-Создадим `autotools.nix`:
+`autotools.nix`:
 
 ```nix
 pkgs: attrs:
@@ -286,41 +217,23 @@ in
 derivation (defaultAttrs // attrs)
 ```
 
-> Ok now we have to remember a little about [Nix functions](#functions-and-imports).
-> The whole nix expression of this `autotools.nix` file will evaluate to a function.
-> This function accepts a parameter `pkgs`, then returns a function which accepts a parameter `attrs`.
-
-Итак, сейчас нам надо кое-что вспомнить о [фукнциях Nix](05-functions-and-imports.md).
-Всё выржаение Nix из файла `autotools.nix` превратится в функцию.
+Чтобы разобраться, как работает этот код, вспоминм кое-что о [фукнциях Nix](05-functions-and-imports.md).
+Всё выржаение Nix из файла `autotools.nix` превращается в функцию.
 Эта функция принимает параметр `pkgs` и возвращает функцию, которая принимает параметр `attrs`.
 
-> The body of the function is simple, yet at first sight it might be hard to grasp:
-
-Тело функции простое, но при первом знакомстве её может быть трудно понять:
-
-> 1. First drop in the scope the magic `pkgs` attribute set.
-> 2. Within a let expression we define a helper variable, `defaultAttrs`, which serves as a set of common attributes used in derivations.
-> 3. Finally we create the derivation with that strange expression, (`defaultAttrs // attrs`).
+Внутри функции не происходит ничего сложного, но при первом знакомстве нам, возможно, придётся потратить время, чтобы понять, как она работает.
 
 1. Сначала добавляем в обласить видимость магический набор атрибутов `pkgs`.
 2. С помощью выражения `let` определяем вспомогательную переменную `defaultAttrs`, куда складываем несколько атрибутов, нужных для деривации.
 3. В конце создаём вызываем `derivation`, передавая в качестве параметра странное выражение (`defaultAttrs // attrs`).
 
-> The [// operator](https://nixos.org/manual/nix/stable/expressions/language-operators.html) is an operator between two sets.
-> The result is the union of the two sets.
-> In case of conflicts between attribute names, the value on the right set is preferred.
-
-[Оператор //](https://nixos.org/manual/nix/stable/expressions/language-operators.html) --- это оператор над двумя наборами.
-Результатом является объединение двух наборов.
+[Оператор //](https://nixos.org/manual/nix/stable/expressions/language-operators.html) — принимает на вход два набора.
+Результатом является их объединение.
 В случае конфликта имён атрибутов, используется значение из правого набора.
 
-> So we use `defaultAttrs` as base set, and add (or override) the attributes from `attrs`.
+Так что мы используем `defaultAttrs` как основу, и добавляем (переопределяем) туда атрибуты из `attrs`.
 
-Так что мы используем `defaultAttrs` как базовый набор, и добавляем в него (или переопределяем в нём) атрибуты из `attrs`.
-
-> A couple of examples ought to be enough to clear out the behavior of the operator:
-
-Пара примеров прояснит поведение оператора: 
+Пара примеров прояснит работу оператора: 
 
 ```text
 nix-repl> { a = "b"; } // { c = "d"; }
@@ -330,21 +243,12 @@ nix-repl> { a = "b"; } // { a = "c"; }
 { a = "c"; }
 ```
 
-> **Exercise:** Complete the new `builder.sh` by adding `$baseInputs` in the `for` loop together with `$buildInputs`.
-
 **Упражнение:** Завершите новый скрипт `builder.sh` добавив `$baseInputs` в цикл `for` вместе с `$buildInputs`.
 
-> As you noticed, we passed that new variable in the derivation.
-> Instead of merging buildInputs with the base ones, we prefer to preserve buildInputs as seen by the caller, so we keep them separated.
-> Just a matter of choice.
+Результат **оператора //** мы передаём в функцию `derivation`.
+Атрибут `buildInputs` пустой, поэтому он будет иметь точно то значение, которое указано в наборе `attrs`. 
 
-Вы могли заметить, что мы передаём эту новую переменную в функцию derivation.
-Вместо слияния `buildInputs` с базовыми значениями, мы предпочитаем сохранить `buildInputs` в том виде, в котором их передала вызывающая сторона, так что мы оставляем их разделёнными.
-Всего лишь вопрос выбора.
-
-> Then we rewrite `hello.nix` as follows:
-
-Теперь перепишем `hello.nix` как ниже:
+Перепишем `hello.nix`:
 
 
 ```nix
@@ -358,73 +262,42 @@ mkDerivation {
 }
 ```
 
-> Finally!
-> We got a very simple description of a package!
-> Below are a couple of remarks that you may find useful as you're continuing to understand the nix language:
-
 Финал!
-Мы получили очень простое описание пакета!
-Ниже пара комментариев, которые вы можете счесть полезными, пока продолжаете разбираться с языком Nix.
-
-> - We assigned to pkgs the import that we did in the previous expressions in the "with".
->   Don't be afraid, it's that straightforward.
-> - The mkDerivation variable is a nice example of partial application, look at it as (`import ./autotools.nix`) `pkgs`.
->   First we import the expression, then we apply the `pkgs` parameter.
->   That will give us a function that accepts the attribute set `attrs`.
-> - We create the derivation specifying only name and src.
->   If the project eventually needed other dependencies to be in PATH, then we would simply add those to buildInputs (not specified in hello.nix because empty).
+Мы получили простейшее описание пакета!
+Несколько комментариев, которые помогут вам лучше разораться в языке Nix.
 
 - Мы помещаем в переменную `pkgs` импорт, который в предыдущих выражениях помещали в оператор "with".
-  Не бойтесь, это просто.
-- Переменная `mkDerivation` это прекрасный пример частичного применения, посмотрите на неё как на '(import ./autotools.nix) pkgs'.
-- Вначале мы импортируем выражение, затем применяем его к параметру `pkgs`. <!-- вызов функции в функциональных языках часто называют применением -->
-- Это даст нам функцию, которая принимает набор атрибутов `attrs`.
-- Мы создаём деривацию, указывая только атрибуты name и src.
-  Если проект в конечном итоге нуждаетя в других знависимостях в PATH, тогда
-  мы можем просто добавить их в `buildInputs` (не указан в hello.nix потому что пустой).
+  Это обычная практика, не стоит её опасться.
+- Переменная `mkDerivation` — прекрасный пример частичного применения.
+  На неё можно смотреть, как как на '(import ./autotools.nix) pkgs'.
+- Вначале мы импортируем выражение, затем применяем его к параметру `pkgs`[^1]. 
+- Это даёт нам функцию, которая принимает набор атрибутов `attrs`.
+- Мы создаём деривацию, указывая только атрибуты `name` и `src`.
+  Если проекту нужны другие знависимости в `PATH`, их можно добавить в `buildInputs`, но в примере с `hello.nix` нам это было не нужно.
 
-> Note we didn't use any other library.
-> Special C flags may be needed to find include files of other libraries at compile time, and ld flags at link time.
-
-Обратие внимание, мы не используюем никаких других библиотек.
-Специальный флаги комплиятора C могут потребоваться, чтобы искать включаемые файлы других библиотек на этапе компиляции, также, как и флаги компоновщика на этапе компоновки.
-
-> ## Conclusion
+Обратие внимание, что мы не используем никаких других библиотек.
+Нам могут потребоваться флаги компилятора C, чтобы искать включаемые файлы других библиотек.
+Также, нам могут потребоваться флаги компоновщика, чтобы искать статические библиотечные.
 
 ## Заключение
 
-> Nix gives us the bare metal tools for creating derivations, setting up a build environment and storing the result in the nix store.
-
 Nix даёт нам базовые инструменты для создания дериваций, подготовки окружения для сборки и сохранения результата в хранилище Nix.
 
-> Out of this pill we managed to create a generic builder for autotools projects, and a function `mkDerivation` that composes by default the common components used in autotools projects instead of repeating them in all the packages we would write.
+В этой пилюле мы написали универсальный скрипт сборки проектов `autotools` и функцию `mkDerivation`.
+Последняя объединяет основные компоненты, используемые в проектах `autotools` с настройками по умолчанию, и избавляет нас от дублирования кода в разных проектах.
 
-В этой пилюле нам удалсь создать универсальный скрипт сборки для проектов autotools, и функцию `mkDerivation`, которая собирает основные компоненты используемые в проектах autotools с настройками по умолчанию, вместо повторения их во всех пакетах, которые мы могли бы написать.
+Мы познакомились с тем, как расширять систему Nix: мы пишем и объединяем новые деривации.
 
-> We are familiarizing ourselves with the way a Nix system grows up: it's about creating and composing derivations with the Nix language.
-
-Мы знакомим себя со способом, по которому система Nix расширяется: это делается путём создания и композиции дериваций с помощью языка Nix.
-
-> *Analogy*: in C you create objects in the heap, and then you compose them inside new objects.
-> Pointers are used to refer to other objects.
-
-*Аналогия*: в C вы создаёте объекты в куче, и затем вы объединяете их внутри новых объектов.
+*Аналогия*: в C вы создаёте объекты, которые находятся в куче, и затем на их основе создаёте новые объекты.
 Для ссылки на другие объекты используются указатели.
 
-> In Nix you create derivations stored in the nix store, and then you compose them by creating new derivations. Store paths are used to refer to other derivations.
-
-В Nix вы создаёте деривации, хранимые в хранилище Nix, и затем вы объединяете их, создавая новые деривации. Пути в хранилище используются для ссылки на другие деривации.
-
-> ## Next pill
+В Nix вы создаёте деривации, которые находятся в хранилище Nix, и затем на их основе создаёте новые деривации. Для ссылки на другие деривации используются выходные пути.
 
 ## В следующей пилюле
 
-> ...we will talk a little about runtime dependencies.
-> Is the GNU hello world package self-contained?
-> What are its runtime dependencies?
-> We only specified build dependencies by means of using other derivations in the "hello" derivation.
-
-Мы немного поговорим про зависимости от среды выполнения.
+...мы поговорим про зависимости от среды выполнения.
 Является ли пакет GNU hello world автономным?
 Каковы зависимости его среды выполнения?
-Пока что мы всего лишь определили зависимости для сборки, посредством использования других дериваций в деривации "hello".
+Пока что мы определили зависимости для сборки, посредством использования других дериваций в деривации "hello".
+
+[^1]: В функциональных языках вызов функции с параметром часто называют применением функции к параметру.
