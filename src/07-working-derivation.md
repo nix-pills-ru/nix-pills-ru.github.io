@@ -239,9 +239,9 @@ pkgs.stdenv.mkDerivation {
 
 `nix-buils` выполняет две задачи:
 
-- [ nix-instantiate ](https://nixos.org/manual/nix/stable/command-ref/nix-instantiate.html):
+- [nix-instantiate](https://nixos.org/manual/nix/stable/command-ref/nix-instantiate.html):
   разбирает и выполняет `simple.nix` и возвращает файл `.drv`, относящийся к разобранному набору деривации
-- [ `nix-store -r` ](https://nixos.org/manual/nix/stable/command-ref/nix-store.html#operation---realise):
+- [`nix-store -r`](https://nixos.org/manual/nix/stable/command-ref/nix-store.html#operation---realise):
   исполняет файл .drv, что в действительности строит деривацию.
 
 В конце концов он создаёт символическую ссылку.
