@@ -10,7 +10,7 @@
 - [7. Работающая деривация](07-working-derivation.md)
 - [8. Универсальные скрипты сборки](08-generic-builders.md)
 - [9. Автоматические зависимости времени выполнения](09-automatic-runtime.md)
-- [10. Developing with `nix-shell` (черн.)](10-developing-with-nix-shell.md)
+- [10. Developing with `nix-shell`](10-developing-with-nix-shell.md)
 - [11. The Garbage Collector]()
 - [12. Package Repositories and the Inputs Design Pattern]()
 - [13. Callpackage Design Pattern]()
