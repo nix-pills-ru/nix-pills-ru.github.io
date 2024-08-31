@@ -11,7 +11,7 @@
 - [8. Универсальные скрипты сборки](08-generic-builders.md)
 - [9. Автоматические зависимости времени выполнения](09-automatic-runtime.md)
 - [10. Developing with `nix-shell`](10-developing-with-nix-shell.md)
-- [11. The Garbage Collector]()
+- [11. Сборщик мусора (черн.)](11-garbage-collector.md)
 - [12. Package Repositories and the Inputs Design Pattern]()
 - [13. Callpackage Design Pattern]()
 - [14. Override Design Pattern]()
