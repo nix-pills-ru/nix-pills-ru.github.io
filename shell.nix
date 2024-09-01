@@ -3,5 +3,6 @@
 pkgs.mkShell {
     nativeBuildInputs = with pkgs.buildPackages; [
         mdbook
+        pandoc
     ];
 }
