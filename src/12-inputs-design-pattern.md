@@ -1,6 +1,6 @@
 > # Package Repositories and the Inputs Design Pattern {#inputs-design-pattern}
 
-# Репозитории паттернов и паттерн проектирования Входы
+# Репозитории пакетов и паттерн проектирования Входящие параметры
 
 > Welcome to the 12th Nix pill.
 > In the previous [11th pill](#garbage-collector), we stopped packaging and cleaned up the system with the garbage collector.
