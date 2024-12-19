@@ -12,7 +12,7 @@
 - [9. Автоматические зависимости времени выполнения](09-automatic-runtime.md)
 - [10. Разработка с помощью `nix-shell`](10-developing-with-nix-shell.md)
 - [11. Сборщик мусора](11-garbage-collector.md)
-- [12. Репозитории пакетов и паттерн проектирования Входящие параметры (черн.)](12-inputs-design-pattern.md)
+- [12. Репозитории пакетов и паттерн проектирования Входящие параметры](12-inputs-design-pattern.md)
 - [13. Callpackage Design Pattern]()
 - [14. Override Design Pattern]()
 - [15. Nix Search Paths]()
