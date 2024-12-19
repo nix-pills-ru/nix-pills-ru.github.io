@@ -94,8 +94,6 @@ for p in $baseInputs $buildInputs; do
 done
 ```
 
-> Now if we add derivations to `buildInputs`, their `lib/pkgconfig` and `bin` paths are automatically added in `setup.sh`.
-
 Теперь, если мы добавим деривации к `buildInputs`, их подкаталоги `lib/pkgconfig` и `bin` автоматически добавятся к переменным `PKG_CONFIG_PATH` и `PATH`.
 
 ## Завершаем `graphviz` с помощью `gd`
@@ -204,10 +202,6 @@ $ dot -V
 Каталог `./scr` также передаётся через параметр, но мы не станем менять исходный код в скрипте сборки.
 В `nixpkgs` при повышении версии предпочитают написать ещё одно выражение (в том числе из-за патчей или отличающихся входящих параметров).
 
-> Our goal is to make package expressions independent of the repository.
-> To achieve this, we use functions to declare inputs for a derivation.
-> For example, with `graphviz.nix`, we make the following changes to make the derivation independent of the repository and customizable:
-
 Наша цель — создать независимое от репозитория выражение для пакета.
 Чтобы этого добиться, мы используем функции для объявления входящих параметров для деривации.
 Например, мы отредактируем  `graphviz.nix` так, чтобы деривация стала настраиваемой и независимой от репозитория:
@@ -230,10 +224,6 @@ mkDerivation {
 ```
 
 Напомню, что `{...}: ...` — это синтаксис определения функции, принимающей набор атрибутов в качестве аргумента, так что этот пример просто определяет функцию.
-
-> We made `gd` and its dependencies optional.
-> If `gdSupport` is true (which it is by default), we will fill `buildInputs` and `graphviz` will be built with `gd` support.
-> Otherwise, if an attribute set is passed with `gdSupport = false;`, the build will be completed without `gd` support.
 
 Мы сделали `gd` и её зависимости опциональными.
 Если параметр `gdSupport` равен `true` (по-умолчанию это именно так), мы заполняем `buildInputs` и `graphviz` будет собран с поддержкой `gd`.
@@ -299,10 +289,6 @@ with pkgs;
 И, поскольку нужные данные передаются через аргументы, выражения можно использовать в других контекстах.
 
 ## В следующей пилюле
-
-> In the next pill, we will talk about the \"`callPackage`\" design pattern.
-> This removes the tedium of specifying the names of the inputs twice: once in the top-level `default.nix`, and once in the package expression.
-> With `callPackage`, we will implicitly pass the necessary inputs from the top-level expression.
 
 В следующей пилюле мы поговорим про паттерн проектирования "`Вызов пакета`".
 Он избавляет от необходимости дублировать имена входных параметров: и в `default.nix`, и в пакетном выражении.
