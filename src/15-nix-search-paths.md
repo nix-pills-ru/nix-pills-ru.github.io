@@ -1,11 +1,18 @@
 > # Nix Search Paths
 
+# Поисковые пути Nix
+
 > Welcome to the 15th Nix pill.
 > In the previous [14th](#override-design-pattern) pill we have introduced the \"override\" pattern, useful for writing variants of derivations by passing different inputs.
+
+Добро пожаловать на пятнадцатую пилюлю Nix.
+В предыдущей [четырнадцатой пилюле](14-override-design-pattern.md) мы познакомились с паттерном Переопределение, полезным при написании вариантов дериваций, путём передачи разнличных входящих параметров.
 
 > Assuming you followed the previous posts, I hope you are now ready to understand `nixpkgs`.
 > But we have to find `nixpkgs` in our system first!
 > So this is the step: introducing some options and environment variables used by nix tools.
+
+П
 
 > ## The NIX_PATH
 
