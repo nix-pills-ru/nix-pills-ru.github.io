@@ -11,4 +11,4 @@
 | packet expression   | пакетное выражение   |           |                                             |
 | set (of attributes) | набор (атрибутов)    |           | не "множество", тут скорее, речь о словаре  |
 | store               | хранилище            |           |                                             |
-| input               | входной параметр     | вход      | речь про inputs of derivation               |
+| input               | входящий параметр    | входящий  | речь про inputs of derivation               |
