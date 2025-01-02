@@ -32,11 +32,13 @@ git checkout -t origin/17
 
 ~~Сконвертируйте текст из исходного репозитория **pills/17-generic-builders.xml** в markdown с помощью сервиса [AllDocs](https://alldocs.app/convert-docbook-to-markdown) (или любого другого, который вам нравится).~~
 
-Сконвертируйте текст из исходного репозитория **pills/17-generic-builders.xml** в markdown с помощью `pandoc`:
+Сконвертируйте текст из [исходного репозитория](https://github.com/NixOS/nix-pills) **pills/17-generic-builders.xml** в markdown с помощью `pandoc`:
 
 ```bash
 pandoc -f docbook -t markdown nix-pills/pills/17-generic-builders.xml -o nix-pills-ru/src/17-generic-builders.md
 ```
+
+Доступна [онлайн-конвертация](https://pandoc.org/try/).
 
 Исходная книга представлена в формате DocBook, но я не умею работать с этим форматом, поэтому предпочёл делать перевод в GitHub Markdown чтобы подготовить книгу с помощью [mdBook](https://github.com/rust-lang/mdBook).
 

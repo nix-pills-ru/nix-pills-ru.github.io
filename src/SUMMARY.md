@@ -13,7 +13,7 @@
 - [10. Разработка с помощью `nix-shell`](10-developing-with-nix-shell.md)
 - [11. Сборщик мусора](11-garbage-collector.md)
 - [12. Репозитории пакетов и паттерн Входящие](12-inputs-design-pattern.md)
-- [13. Callpackage Design Pattern]()
+- [13. Паттерн проектирования `callPackage`](13-callpackage-design-pattern.md)
 - [14. Паттерн проектирования override (переопределение)](14-override-design-pattern.md)
 - [15. Nix Search Paths]()
 - [16. Nixpkgs Parameters]()
