@@ -14,7 +14,7 @@
 - [11. Сборщик мусора](11-garbage-collector.md)
 - [12. Репозитории пакетов и паттерн Входящие](12-inputs-design-pattern.md)
 - [13. Callpackage Design Pattern]()
-- [14. Override Design Pattern]()
+- [14. Паттерн проектирования override (переопределение)](14-override-design-pattern.md)
 - [15. Nix Search Paths]()
 - [16. Nixpkgs Parameters]()
 - [17. Nixpkgs Overriding Packages]()
