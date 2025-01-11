@@ -15,7 +15,7 @@
 - [12. Репозитории пакетов и паттерн Входящие](12-inputs-design-pattern.md)
 - [13. Callpackage Design Pattern]()
 - [14. Override Design Pattern]()
-- [15. Nix Search Paths]()
+- [15. Поисковые пути Nix](15-nix-search-paths.md)
 - [16. Nixpkgs Parameters]()
 - [17. Nixpkgs Overriding Packages]()
 - [18. Nix Store Paths]()
