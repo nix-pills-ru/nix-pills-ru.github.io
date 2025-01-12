@@ -1,5 +1,7 @@
 > # Nixpkgs Overriding Packages
 
+# Переопределение пакетов nixpkgs
+
 > Welcome to the 17th Nix pill.
 > In the previous [16th](#nixpkgs-parameters) pill we have started to dive into the [nixpkgs repository](http://github.com/NixOS/nixpkgs).
 > `Nixpkgs` is a function, and we\'ve looked at some parameters like `system` and `config`.

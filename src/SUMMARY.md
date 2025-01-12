@@ -17,7 +17,7 @@
 - [14. Паттерн проектирования override (переопределение)](14-override-design-pattern.md)
 - [15. Поисковые пути Nix](15-nix-search-paths.md)
 - [16. Nixpkgs Parameters]()
-- [17. Nixpkgs Overriding Packages]()
+- [17. Переопределение пакетов nixpkgs (черн.)](17-nixpkgs-overriding-packages.md)
 - [18. Nix Store Paths]()
 - [19. Fundamentals of Stdenv]()
 - [20. Basic Dependecies and Hooks]()
