@@ -18,6 +18,6 @@
 - [15. Поисковые пути Nix](15-nix-search-paths.md)
 - [16. Nixpkgs Parameters]()
 - [17. Nixpkgs Overriding Packages]()
-- [18. Nix Store Paths]()
+- [18. Пути хранилища Nix](18-nix-store-paths.md)
 - [19. Fundamentals of Stdenv]()
 - [20. Basic Dependecies and Hooks]()
