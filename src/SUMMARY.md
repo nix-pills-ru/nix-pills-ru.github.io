@@ -16,7 +16,7 @@
 - [13. Паттерн проектирования `callPackage`](13-callpackage-design-pattern.md)
 - [14. Паттерн проектирования override (переопределение)](14-override-design-pattern.md)
 - [15. Поисковые пути Nix](15-nix-search-paths.md)
-- [16. Параметры nixpkgs (черн.)](16-nixpkgs-parameters.md)
+- [16. Параметры nixpkgs](16-nixpkgs-parameters.md)
 - [17. Nixpkgs Overriding Packages]()
 - [18. Nix Store Paths]()
 - [19. Fundamentals of Stdenv]()
