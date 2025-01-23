@@ -19,5 +19,5 @@
 - [16. Параметры nixpkgs](16-nixpkgs-parameters.md)
 - [17. Переопределение пакетов nixpkgs](17-nixpkgs-overriding-packages.md)
 - [18. Пути хранения Nix](18-nix-store-paths.md)
-- [19. Fundamentals of Stdenv]()
+- [19. Основы `stdenv`](19-fundamentals-of-stdenv.md)
 - [20. Basic Dependecies and Hooks]()
