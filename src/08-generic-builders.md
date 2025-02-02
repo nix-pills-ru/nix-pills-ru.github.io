@@ -152,7 +152,8 @@ derivation {
   ];
   src = ./hello-2.12.1.tar.gz;
   system = builtins.currentSystem;
-}```
+}
+```
 
 Тут всё ясно, за исключением, может быть, `buildInputs`.
 Но и в `buildInputs` нет никакой чёрной магии.
