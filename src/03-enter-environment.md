@@ -136,7 +136,7 @@ switching from generation 2 to 3
 Чтобы вывести непосредственные зависимости программы `hello`:
 
 ```text
-$ nix-store -q --references `which hello`
+$ nix-store -q --references $(which hello)
 /nix/store/fg4yq8i8wd08xg3fy58l6q73cjy8hjr2-glibc-2.27
 /nix/store/58r35bqb4f3lxbnbabq718svq9i2pda3-hello-2.10
 ```
@@ -147,7 +147,7 @@ $ nix-store -q --references `which hello`
 Сейчас это может показаться неважным, но давайте просмотрим деривации, зависящие от `hello`:
 
 ```text
-$ nix-store -q --referrers `which hello`
+$ nix-store -q --referrers $(which hello)
 /nix/store/58r35bqb4f3lxbnbabq718svq9i2pda3-hello-2.10
 /nix/store/fhvy2550cpmjgcjcx5rzz328i0kfv3z3-env-manifest.nix
 /nix/store/yzdk0xvr0b8dcwhi2nns6d75k2ha5208-env-manifest.nix
@@ -170,7 +170,7 @@ $ nix-store -q --referrers `which hello`
 Замыкание деривации — это дерево всех её зависимостей, которое включает абсолютно всё, что нужно для использования данной деривации.
 
 ```text
-$ nix-store -qR `which man`
+$ nix-store -qR $(which man)
 [...]
 ```
 
@@ -180,7 +180,7 @@ $ nix-store -qR `which man`
 Просмотр замыкания в виде дерева зависимостей:
 
 ```text
-$ nix-store -q --tree `which man`
+$ nix-store -q --tree $(which man)
 [...]
 ```
 
