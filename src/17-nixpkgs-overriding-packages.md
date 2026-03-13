@@ -148,7 +148,7 @@ nix-repl> :b pkgs.asciidoc-full
 Мы уже обсуждали этот файл в предыдущей пилюле.
 Обычно там находится что-то похожее на `config.nix`, который мы только что написали.
 
-Файл позволяет избавиться от явной передачи параметров всякий раз, когда мы импортируем `nixpkgs`, поскольку [загружается в `nixpkgs` атоматически](https://github.com/NixOS/nixpkgs/blob/32c523914fdb8bf9cc7912b1eba023a8daaae2e8/pkgs/top-level/impure.nix#L28).
+Файл позволяет избавиться от явной передачи параметров всякий раз, когда мы импортируем `nixpkgs`, поскольку [загружается в `nixpkgs` автоматически](https://github.com/NixOS/nixpkgs/blob/32c523914fdb8bf9cc7912b1eba023a8daaae2e8/pkgs/top-level/impure.nix#L28).
 
 ## Заключение
 
