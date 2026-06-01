@@ -12,7 +12,7 @@
 
 ## Функция "derivation"
 
-Для создания дериваций используется [встроенная функция `derivation``](https://nixos.org/manual/nix/stable/expressions/derivations.html).
+Для создания дериваций используется [встроенная функция `derivation`](https://nixos.org/manual/nix/stable/expressions/derivations.html).
 Прежде, чем двигаться дальше, пройдите по ссылке и познакомьтесь с тем, что написано в официальном руководстве.
 С точки зрения языка Nix, деривация — всего лишь набор с несколькими атрибутами, так что вы можете хранить её в переменной и передавать в другие функции, как любое другое значение.
 
@@ -140,12 +140,12 @@ error: a `mysystem' is required to build `/nix/store/z3hhlxbckx4g3n9sw91nnvlkjvy
 Вы можете **реализовать** файл `.drv` с помощью команды:
 
 ```text
-\$ nix-store -r /nix/store/z3hhlxbckx4g3n9sw91nnvlkjvyw754p-myname.drv
+$ nix-store -r /nix/store/z3hhlxbckx4g3n9sw91nnvlkjvyw754p-myname.drv
 ```
 
 На экране будет напечатано то же самое.
 
-Давайте исправим атрибут `system``:
+Давайте исправим атрибут `system`:
 
 ```text
 nix-repl> d = derivation { name = "myname"; builder = "mybuilder"; system = builtins.currentSystem; }
